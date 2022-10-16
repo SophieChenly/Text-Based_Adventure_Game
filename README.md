@@ -11,9 +11,9 @@ I hope to create a text-based simulation that offers branching choices for the p
 
 ## User Stories
 
-- As a user, I want to be able to play an adventure game with different choices and branching storylines.
+- As a user, I want to be able to play an adventure game with a branching storyline and different endings.
 - As a user, I want to be able to add items into my inventory to use in the game.
 - As a user, I want to be able to win or lose the game.
-- As a user, I want to be able to save my progress in the game.
+- As a user, I want to be able to make choices that influence the course of the game.
 
  

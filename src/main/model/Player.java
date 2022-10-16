@@ -11,17 +11,14 @@ public class Player {
     private int playerPower;
     private List<Weapon> inventory;
     private Scene lastScene;
+    private Boolean dead;
 
     // initializes the player
     public Player() {
         this.playerHealth = 100;
         this.playerPower = 1;
         this.inventory = new ArrayList<>();
-    }
-
-    // adds a weapon in the player's inventory
-    public void addWeapons(Weapon weapon)   {
-        this.inventory.add(weapon);
+        this.dead = false;
     }
 
     public int getPlayerHealth() {
@@ -40,6 +37,10 @@ public class Player {
         return this.lastScene;
     }
 
+    public Boolean getPlayerDead() {
+        return this.dead;
+    }
+
     public void setPlayerHealth(int newHealth) {
         this.playerHealth = newHealth;
     }
@@ -52,8 +53,16 @@ public class Player {
         this.playerPower = playerPower;
     }
 
+    public void setPlayerInventory(List<Weapon> listOfWeapon) {
+        this.inventory = listOfWeapon;
+    }
+
     public void setPlayerLastScene(Scene scene) {
         this.lastScene = scene;
+    }
+
+    public void setPlayerDead(Boolean bool) {
+        this.dead = bool;
     }
 
 
@@ -63,7 +72,7 @@ public class Player {
     }
 
     //MODIFIES: this
-    //EFFECTS: player gets hurt by damage
+    //EFFECTS: player gets hurt by damage, if player health drops below 0, player dies
     public void playerHurt(int damage) {
         //stub
     }
@@ -72,6 +81,11 @@ public class Player {
     //EFFECTS: player gets healed
     public void playerHeal(int heal) {
         //stub
+    }
+
+    // adds a weapon in the player's inventory
+    public void addWeapons(Weapon weapon)   {
+        this.inventory.add(weapon);
     }
 
 }
