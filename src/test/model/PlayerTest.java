@@ -16,7 +16,7 @@ class PlayerTest {
     private static Player testPlayer;
 
     @BeforeAll
-    public void setUp() {
+    public static void setUp() {
         testPlayer = new Player();
     }
 
@@ -27,6 +27,7 @@ class PlayerTest {
 
     @Test
     public void testPlayerHurtNotFatal() {
+        testPlayer.setPlayerDead(false);
         testPlayer.setPlayerHealth(100);
         testPlayer.playerHurt(50);
         assertEquals(testPlayer.getPlayerHealth(), 50);
@@ -35,6 +36,7 @@ class PlayerTest {
 
     @Test
     public void testPlayerHurtMultipleNotFatal() {
+        testPlayer.setPlayerDead(false);
         testPlayer.setPlayerHealth(100);
         testPlayer.playerHurt(30);
         testPlayer.playerHurt(20);
@@ -44,6 +46,7 @@ class PlayerTest {
 
     @Test
     public void testPlayerHurtFatal() {
+        testPlayer.setPlayerDead(false);
         testPlayer.setPlayerHealth(100);
         testPlayer.playerHurt(100);
         assertEquals(testPlayer.getPlayerHealth(),0);

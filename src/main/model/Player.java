@@ -68,19 +68,22 @@ public class Player {
 
     //EFFECTS: player performs an attack based on power and weapon damage
     public int playerAttack(int playerPower, int weaponDamage) {
-        return 0; //stub
+        return playerPower * weaponDamage;
     }
 
     //MODIFIES: this
     //EFFECTS: player gets hurt by damage, if player health drops below 0, player dies
     public void playerHurt(int damage) {
-        //stub
+        if (this.playerHealth <= damage) {
+            this.setPlayerDead(true);
+        }
+        this.playerHealth -= damage;
     }
 
     //MODIFIES: this
     //EFFECTS: player gets healed
     public void playerHeal(int heal) {
-        //stub
+        this.playerHealth += heal;
     }
 
     // adds a weapon in the player's inventory
