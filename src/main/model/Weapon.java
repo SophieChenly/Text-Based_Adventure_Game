@@ -1,5 +1,6 @@
 package model;
 
+// weapon for use in combat
 public class Weapon {
 
     private String weaponName;
@@ -12,17 +13,23 @@ public class Weapon {
         this.weaponName = name;
         this.minDamage = min;
         this.maxDamage = max;
-        this.weaponDamage = calculateWeaponDamage(min,max);
+        this.weaponDamage = weaponDamage(min,max);
     }
 
-    public int calculateWeaponDamage(int min, int max) {
+    //MODIFIES: this
+    //EFFECTS: sets weapon damage
+    public int weaponDamage(int min, int max) {
         return (int) Math.floor(Math.random() * (max - min + 1) + min);
     }
 
-    public int showWeaponDamage() {
-        System.out.println("Your weapon is a " + this.weaponName + " with " + this.weaponDamage + " power.");
-        return 0;
+    public int getWeaponDamage() {
+        return this.weaponDamage;
     }
+
+    public String getWeaponName() {
+        return this.weaponName;
+    }
+
     
 
 }
