@@ -108,11 +108,12 @@ public class Game {
 
     private Player newPlayer;
 
+    // EFFECTS: runs the game
     public Game() {
         runGame();
     }
 
-    // runs the game
+    // EFFECTS: runs the game
     private void runGame() {
         this.newPlayer = new Player();
         newPlayer.addWeapons(tornBook);
@@ -122,7 +123,8 @@ public class Game {
 
     }
 
-    // allows player to add an arbitraru number of weapons to their inventory
+    // MODIFIES: this
+    // EFFECTS: allows player to add an arbitraru number of weapons to their inventory
     private void arbWeapons() {
         System.out.println("Before we start, may I interest you in an unlimited number of useless weapons? \n"
                 + "For no reason whatsoever. You'll be able to find them in your inventory later."
@@ -138,7 +140,7 @@ public class Game {
     }
 
 
-    // indicates a loss and restarts the game
+    // EFFECTS: indicates a loss and restarts the game
     private void gameOver() {
         System.out.println("You died. Type restart to start over");
         Scanner restart = new Scanner(System.in);
@@ -150,7 +152,7 @@ public class Game {
         }
     }
 
-    // indicates a win and restarts the game
+    // EFFECTS: puts the player in a boss battle. If won, wins the game, if not, loses the game
     private void gameWin() {
         int damageDealt = newPlayer.playerAttack(newPlayer.getPlayerPower(), newPlayer.getStrongestWeaponDamage());
 
@@ -175,7 +177,7 @@ public class Game {
 
     }
 
-    //
+    // EFFECTS: prints out the player's inventory, showing the stats and names of collected weapons
     private void displayInventory(Scene scene) {
         for (Weapon weapon: newPlayer.getInventory()) {
             System.out.println(weapon.getWeaponStats());
@@ -183,12 +185,15 @@ public class Game {
         playScene(scene);
     }
 
+    // EFFECTS: prints out possible options for the player to choose from
     private void displayOptions(Scene scene) {
         System.out.println("1. " + scene.getFirstChoice().getOptionName());
         System.out.println("2. " + scene.getSecondChoice().getOptionName());
         System.out.println("3. " + scene.getThirdChoice().getOptionName());
     }
 
+    // EFFECTS: runs through a scene, adds weapons if found, lose if chose wrong option, goes to boss battle if all the
+    // correct options are chosen, allows the player to select which option they'd like to choose
     private void playScene(Scene scene) {
         System.out.println(scene.getMainText());
         if (scene.getGameOver()) {
@@ -211,6 +216,7 @@ public class Game {
 
     }
 
+    // EFFECTS: allows the player to input their choice to select their desired path
     private void scanChoice(Scene scene) {
         Scanner decision = new Scanner(System.in);
 

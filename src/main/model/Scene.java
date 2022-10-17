@@ -46,7 +46,7 @@ public class Scene {
         this.gameOver = true;
     }
 
-    // creates a scene showing you won
+    // brings the player to the boss battle
     public Scene(Boolean gameWin, String optionName, String main) {
         this.optionName = optionName;
         this.mainText = main;
