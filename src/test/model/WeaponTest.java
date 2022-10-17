@@ -23,6 +23,6 @@ public class WeaponTest {
 
     @Test
     public void testDisplayWeaponStats() {
-        assertEquals(testWeapon.displayWeaponStats(), "Weapon name: test weapon\n Damage: " + testWeapon.getWeaponDamage());
+        assertEquals(testWeapon.getWeaponStats(), "Weapon name: test weapon\n Damage: " + testWeapon.getWeaponDamage());
     }
 }

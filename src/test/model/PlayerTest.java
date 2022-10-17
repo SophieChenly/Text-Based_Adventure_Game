@@ -74,12 +74,16 @@ class PlayerTest {
         Weapon crowbar = new Weapon("crowbar", 2, 3);
         Weapon hatchet = new Weapon("hatchet", 2, 3);
         Weapon chainsaw = new Weapon("chainsaw", 2, 3);
+        Weapon gregor = new Weapon("gregor", 99, 100);
         ArrayList<Weapon> testInventory = new ArrayList<>();
         testInventory.add(crowbar);
         testInventory.add(hatchet);
         testPlayer.setPlayerInventory(testInventory);
         testPlayer.addWeapons(chainsaw);
         testInventory.add(chainsaw);
+        assertEquals(testPlayer.getInventory(), testInventory);
+        testPlayer.addWeapons(gregor);
+        testInventory.add(gregor);
         assertEquals(testPlayer.getInventory(), testInventory);
 
     }

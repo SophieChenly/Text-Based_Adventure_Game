@@ -26,7 +26,7 @@ public class Scene {
 
     // EFFECTS: makes a message that tells the player to make a choice
     public String choiceMessage() {
-        return "stub"; //stub
+        return "make your choice.";
     }
 
     public String getMainText() {
@@ -45,30 +45,11 @@ public class Scene {
         return this.thirdChoice;
     }
 
-    //EFFECTS: game over
-    public void endGame() {
-        //stub
+    //EFFECTS: message telling players it's game over
+    public String endGameText() {
+        return "You died. Game over.";
     }
 
-    //EFFECTS: displays main text
-    public void displayMainText() {
-        //stub
-    }
-
-    //EFFECTS: displays first choice
-    public void displayFirstChoice() {
-        //stub
-    }
-
-    //EFFECTS: displays second choice
-    public void displaySecondChoice() {
-        //stub
-    }
-
-    //EFFECTS: displays third choice
-    public void displayThirdChoice() {
-        //stub
-    }
 
 
 
