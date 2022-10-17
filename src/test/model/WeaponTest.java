@@ -21,13 +21,13 @@ public class WeaponTest {
     @Test
     public void testWeaponDamage() {
         assertTrue(testWeapon.getWeaponDamage() <= 5 && testWeapon.getWeaponDamage() >= 1);
-        assertEquals(testWeaponTwo.getWeaponDamage(), 0);
+        assertEquals(0, testWeaponTwo.getWeaponDamage());
     }
 
     @Test
     public void testDisplayWeaponStats() {
-        assertEquals(testWeapon.getWeaponStats(), "Weapon name: test weapon\n Damage: " + testWeapon.getWeaponDamage());
-        assertEquals(testWeaponTwo.getWeaponStats(), "Weapon name: test weapon two\n Damage: " + testWeaponTwo.getWeaponDamage());
+        assertEquals("Weapon name: test weapon\n Damage: " + testWeapon.getWeaponDamage(),testWeapon.getWeaponStats());
+        assertEquals("Weapon name: test weapon two\n Damage: " + testWeaponTwo.getWeaponDamage(), testWeaponTwo.getWeaponStats());
     }
 
     @Test

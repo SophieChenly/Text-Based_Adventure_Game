@@ -24,10 +24,10 @@ class PlayerTest {
 
     @Test
     public void testPlayerAttack() {
-        assertEquals(testPlayer.playerAttack(testPlayer.getPlayerPower(), 3), testPlayer.getPlayerPower() * 3);
-        assertEquals(testPlayer.playerAttack(testPlayer.getPlayerPower(), 0), 0);
-        assertEquals(testPlayerTwo.playerAttack(testPlayerTwo.getPlayerPower(), 3), testPlayerTwo.getPlayerPower() * 3);
-        assertEquals(testPlayerTwo.playerAttack(testPlayerTwo.getPlayerPower(), 0), 0);
+        assertEquals(testPlayer.getPlayerPower() * 3, testPlayer.playerAttack(testPlayer.getPlayerPower(), 3));
+        assertEquals(0, testPlayer.playerAttack(testPlayer.getPlayerPower(), 0));
+        assertEquals(testPlayerTwo.getPlayerPower() * 3, testPlayerTwo.playerAttack(testPlayerTwo.getPlayerPower(), 3));
+        assertEquals(0, testPlayerTwo.playerAttack(testPlayerTwo.getPlayerPower(), 0));
     }
 
     @Test
@@ -39,7 +39,7 @@ class PlayerTest {
         testInventory.add(hacksaw);
         testPlayer.addWeapons(crowbar);
         testPlayer.addWeapons(hacksaw);
-        assertEquals(testPlayer.getInventory(), testInventory);
+        assertEquals(testInventory, testPlayer.getInventory());
     }
 
     @Test
@@ -54,10 +54,10 @@ class PlayerTest {
         testPlayer.setPlayerInventory(testInventory);
         testPlayer.addWeapons(chainsaw);
         testInventory.add(chainsaw);
-        assertEquals(testPlayer.getInventory(), testInventory);
+        assertEquals(testInventory, testPlayer.getInventory());
         testPlayer.addWeapons(gregor);
         testInventory.add(gregor);
-        assertEquals(testPlayer.getInventory(), testInventory);
+        assertEquals(testInventory, testPlayer.getInventory());
 
     }
 
