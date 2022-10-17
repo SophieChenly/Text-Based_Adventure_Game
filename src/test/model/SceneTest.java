@@ -15,10 +15,6 @@ public class SceneTest {
     Scene testScene = new Scene("test", "main", testSceneOne, testSceneTwo, testSceneThree);
 
 
-    @Test
-    public void testSceneChoice() {
-        assertEquals(testScene.choiceMessage(),"make your choice.");
-    }
 
     @Test
     public void testSceneGameOverText() {

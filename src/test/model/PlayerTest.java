@@ -9,8 +9,7 @@ import model.Player;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.*;
 
 class PlayerTest {
 
@@ -24,49 +23,18 @@ class PlayerTest {
     @Test
     public void testPlayerAttack() {
         assertEquals(testPlayer.playerAttack(testPlayer.getPlayerPower(), 3), testPlayer.getPlayerPower() * 3);
-    }
-
-    @Test
-    public void testPlayerHurtNotFatal() {
-        testPlayer.setPlayerDead(false);
-        testPlayer.setPlayerHealth(100);
-        testPlayer.playerHurt(50);
-        assertEquals(testPlayer.getPlayerHealth(), 50);
-        assertFalse(testPlayer.getPlayerDead());
-    }
-
-    @Test
-    public void testPlayerHurtMultipleNotFatal() {
-        testPlayer.setPlayerDead(false);
-        testPlayer.setPlayerHealth(100);
-        testPlayer.playerHurt(30);
-        testPlayer.playerHurt(20);
-        assertEquals(testPlayer.getPlayerHealth(), 50);
-        assertFalse(testPlayer.getPlayerDead());
-    }
-
-    @Test
-    public void testPlayerHurtFatal() {
-        testPlayer.setPlayerDead(false);
-        testPlayer.setPlayerHealth(100);
-        testPlayer.playerHurt(100);
-        assertEquals(testPlayer.getPlayerHealth(),0);
-        Assertions.assertTrue(testPlayer.getPlayerDead());
-    }
-
-    @Test
-    public void testPlayerHeal() {
-        testPlayer.setPlayerHealth(150);
-        testPlayer.playerHeal(100);
-        assertEquals(testPlayer.getPlayerHealth(), 250);
+        assertEquals(testPlayer.playerAttack(testPlayer.getPlayerPower(), 0), 0);
     }
 
     @Test
     public void testAddWeaponsToEmptyInventory() {
         Weapon crowbar = new Weapon("crowbar", 2, 3);
+        Weapon hacksaw = new Weapon("hacksaw", 10, 15);
         ArrayList<Weapon> testInventory = new ArrayList<>();
         testInventory.add(crowbar);
+        testInventory.add(hacksaw);
         testPlayer.addWeapons(crowbar);
+        testPlayer.addWeapons(hacksaw);
         assertEquals(testPlayer.getInventory(), testInventory);
     }
 
@@ -88,4 +56,15 @@ class PlayerTest {
         assertEquals(testPlayer.getInventory(), testInventory);
 
     }
+
+    @Test
+    public void testPlayerWin() {
+        testPlayer.setStrongestWeaponDamage(10);
+        assertTrue(testPlayer.playerWin(10));
+        assertTrue(testPlayer.playerWin(5));
+        assertTrue(testPlayer.playerWin(0));
+        assertFalse(testPlayer.playerWin(1000));
+        assertFalse(testPlayer.playerWin(11));
+    }
+
 }

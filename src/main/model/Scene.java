@@ -53,11 +53,6 @@ public class Scene {
         this.gameWin = true;
     }
 
-    // EFFECTS: makes a message that tells the player to make a choice
-    public String choiceMessage() {
-        return "make your choice.";
-    }
-
     public String getMainText() {
         return this.mainText;
     }

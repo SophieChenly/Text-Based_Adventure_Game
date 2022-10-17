@@ -11,14 +11,14 @@ public class Player {
     private int playerPower;
     private List<Weapon> inventory;
     private Scene lastScene;
-    private Boolean dead;
+    private int strongestWeaponDamage = 0;
+    private String strongestWeaponName;
 
     // initializes the player
     public Player() {
         this.playerHealth = 100;
         this.playerPower = 1;
         this.inventory = new ArrayList<>();
-        this.dead = false;
     }
 
     public int getPlayerHealth() {
@@ -37,8 +37,20 @@ public class Player {
         return this.lastScene;
     }
 
-    public Boolean getPlayerDead() {
-        return this.dead;
+    public int getStrongestWeaponDamage() {
+        return this.strongestWeaponDamage;
+    }
+
+    public String getStrongestWeaponName() {
+        return this.strongestWeaponName;
+    }
+
+    public void setStrongestWeaponDamage(int damage) {
+        this.strongestWeaponDamage = damage;
+    }
+
+    public void setStrongestWeaponName(String name) {
+        this.strongestWeaponName = name;
     }
 
     public void setPlayerHealth(int newHealth) {
@@ -61,34 +73,24 @@ public class Player {
         this.lastScene = scene;
     }
 
-    public void setPlayerDead(Boolean bool) {
-        this.dead = bool;
-    }
-
 
     //EFFECTS: player performs an attack based on power and weapon damage
     public int playerAttack(int playerPower, int weaponDamage) {
         return playerPower * weaponDamage;
     }
 
-    //MODIFIES: this
-    //EFFECTS: player gets hurt by damage, if player health drops below 0, player dies
-    public void playerHurt(int damage) {
-        if (this.playerHealth <= damage) {
-            this.setPlayerDead(true);
+    //EFFECTS: calculates whether the player will win or lose against the enemy
+    public Boolean playerWin(int enemyHealth) {
+        if (this.playerAttack(this.playerPower, this.strongestWeaponDamage) >= enemyHealth) {
+            return true;
         }
-        this.playerHealth -= damage;
-    }
-
-    //MODIFIES: this
-    //EFFECTS: player gets healed
-    public void playerHeal(int heal) {
-        this.playerHealth += heal;
+        return false;
     }
 
     // adds a weapon in the player's inventory
     public void addWeapons(Weapon weapon)   {
         this.inventory.add(weapon);
     }
+
 
 }

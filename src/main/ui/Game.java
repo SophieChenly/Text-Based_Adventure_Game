@@ -7,6 +7,7 @@ import model.Weapon;
 import java.sql.SQLOutput;
 import java.util.Scanner;
 
+// Creates the main game
 public class Game {
     Weapon tornBook = new Weapon("torn book", 0, 2);
 
@@ -111,6 +112,7 @@ public class Game {
         runGame();
     }
 
+    // runs the game
     private void runGame() {
         this.newPlayer = new Player();
         newPlayer.addWeapons(tornBook);
@@ -120,6 +122,7 @@ public class Game {
 
     }
 
+    // allows player to add an arbitraru number of weapons to their inventory
     private void arbWeapons() {
         System.out.println("Before we start, may I interest you in an unlimited number of useless weapons? \n"
                 + "For no reason whatsoever. You'll be able to find them in your inventory later."
@@ -135,6 +138,7 @@ public class Game {
     }
 
 
+    // indicates a loss and restarts the game
     private void gameOver() {
         System.out.println("You died. Type restart to start over");
         Scanner restart = new Scanner(System.in);
@@ -146,8 +150,21 @@ public class Game {
         }
     }
 
+    // indicates a win and restarts the game
     private void gameWin() {
-        System.out.println("You won. Type restart to start over");
+        int damageDealt = newPlayer.playerAttack(newPlayer.getPlayerPower(), newPlayer.getStrongestWeaponDamage());
+
+        System.out.println("Before you got on, a gigantic zombie busted down the door to the balcony! \n"
+                 + "You grabbed your strongest weapon " + newPlayer.getStrongestWeaponName() + " and dealt "
+                 + damageDealt + " damage.");
+        if (newPlayer.playerWin(100)) {
+            System.out.println("The power of gregor the great coursed through your veins. You slayed the beast! \n"
+                     + "You all escaped safely. You win!");
+        } else {
+            System.out.println("Your attack was too weak. The zombie ripped you to shreds. So close yet so far.");
+        }
+
+        System.out.println("Type restart to start over");
         Scanner restart = new Scanner(System.in);
         String restartChoice = restart.nextLine();
         if (restartChoice.equals("restart")) {
@@ -158,14 +175,18 @@ public class Game {
 
     }
 
+    //
     private void displayInventory(Scene scene) {
-        if (scene.getAddWeapon()) {
-            newPlayer.addWeapons(scene.getWeapon());
-        }
         for (Weapon weapon: newPlayer.getInventory()) {
             System.out.println(weapon.getWeaponStats());
         }
         playScene(scene);
+    }
+
+    private void displayOptions(Scene scene) {
+        System.out.println("1. " + scene.getFirstChoice().getOptionName());
+        System.out.println("2. " + scene.getSecondChoice().getOptionName());
+        System.out.println("3. " + scene.getThirdChoice().getOptionName());
     }
 
     private void playScene(Scene scene) {
@@ -175,9 +196,22 @@ public class Game {
         } else if (scene.getGameWin()) {
             gameWin();
         }
-        System.out.println("1. " + scene.getFirstChoice().getOptionName());
-        System.out.println("2. " + scene.getSecondChoice().getOptionName());
-        System.out.println("3. " + scene.getThirdChoice().getOptionName());
+
+        displayOptions(scene);
+
+        if (scene.getAddWeapon()) {
+            newPlayer.addWeapons(scene.getWeapon());
+            if (scene.getWeapon().getWeaponDamage() > newPlayer.getStrongestWeaponDamage()) {
+                newPlayer.setStrongestWeaponDamage(scene.getWeapon().getWeaponDamage());
+                newPlayer.setStrongestWeaponName(scene.getWeapon().getWeaponName());
+            }
+        }
+
+        scanChoice(scene);
+
+    }
+
+    private void scanChoice(Scene scene) {
         Scanner decision = new Scanner(System.in);
 
         int choice = decision.nextInt();

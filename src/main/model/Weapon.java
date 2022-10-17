@@ -16,12 +16,6 @@ public class Weapon {
         this.weaponDamage = weaponDamage(min,max);
     }
 
-    //MODIFIES: this
-    //EFFECTS: sets weapon damage
-    public int weaponDamage(int min, int max) {
-        return (int) Math.floor(Math.random() * (max - min + 1) + min);
-    }
-
     public int getWeaponDamage() {
         return this.weaponDamage;
     }
@@ -33,6 +27,12 @@ public class Weapon {
     //EFFECTS: displays weapon name and damage
     public String getWeaponStats() {
         return "Weapon name: " + this.weaponName + "\n Damage: " + this.weaponDamage;
+    }
+
+    //MODIFIES: this
+    //EFFECTS: sets weapon damage
+    public int weaponDamage(int min, int max) {
+        return (int) Math.floor(Math.random() * (max - min + 1) + min);
     }
 
     
