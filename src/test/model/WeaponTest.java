@@ -15,7 +15,7 @@ public class WeaponTest {
     @BeforeEach
     public void setUp() {
         testWeapon = new Weapon("test weapon", 1, 5);
-        testWeapon = new Weapon("test weapon two", 0, 0);
+        testWeaponTwo = new Weapon("test weapon two", 0, 0);
 }
 
     @Test
@@ -27,7 +27,17 @@ public class WeaponTest {
     @Test
     public void testDisplayWeaponStats() {
         assertEquals(testWeapon.getWeaponStats(), "Weapon name: test weapon\n Damage: " + testWeapon.getWeaponDamage());
-        assertEquals(testWeaponTwo.getWeaponStats(), "Weapon name: test weapon\n Damage: " + testWeaponTwo.getWeaponDamage());
+        assertEquals(testWeaponTwo.getWeaponStats(), "Weapon name: test weapon two\n Damage: " + testWeaponTwo.getWeaponDamage());
+    }
+
+    @Test
+    public void testWeaponConstructors() {
+        assertEquals("test weapon", testWeapon.getWeaponName());
+        assertEquals(1, testWeapon.getMinDamage());
+        assertEquals(5, testWeapon.getMaxDamage());
+        assertEquals("test weapon two", testWeaponTwo.getWeaponName());
+        assertEquals(0, testWeaponTwo.getMinDamage());
+        assertEquals(0, testWeaponTwo.getMaxDamage());
     }
 
 }

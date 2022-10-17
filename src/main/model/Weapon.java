@@ -20,6 +20,13 @@ public class Weapon {
         return this.weaponDamage;
     }
 
+    public int getMinDamage() {
+        return this.minDamage;
+    }
+
+    public int getMaxDamage() {
+        return this.maxDamage;
+    }
     public String getWeaponName() {
         return this.weaponName;
     }

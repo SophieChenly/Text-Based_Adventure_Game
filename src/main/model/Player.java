@@ -33,10 +33,6 @@ public class Player {
         return this.inventory;
     }
 
-    public Scene getLastScene() {
-        return this.lastScene;
-    }
-
     public int getStrongestWeaponDamage() {
         return this.strongestWeaponDamage;
     }
@@ -53,26 +49,9 @@ public class Player {
         this.strongestWeaponName = name;
     }
 
-    public void setPlayerHealth(int newHealth) {
-        this.playerHealth = newHealth;
-    }
-
-    public void setPlayerName(String playerName) {
-        this.playerName = playerName;
-    }
-
-    public void setPlayerPower(int playerPower) {
-        this.playerPower = playerPower;
-    }
-
     public void setPlayerInventory(List<Weapon> listOfWeapon) {
         this.inventory = listOfWeapon;
     }
-
-    public void setPlayerLastScene(Scene scene) {
-        this.lastScene = scene;
-    }
-
 
     //EFFECTS: player performs an attack based on power and weapon damage
     public int playerAttack(int playerPower, int weaponDamage) {

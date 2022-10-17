@@ -14,16 +14,20 @@ import static org.junit.jupiter.api.Assertions.*;
 class PlayerTest {
 
     private static Player testPlayer;
+    private static Player testPlayerTwo;
 
     @BeforeAll
     public static void setUp() {
         testPlayer = new Player();
+        testPlayerTwo = new Player();
     }
 
     @Test
     public void testPlayerAttack() {
         assertEquals(testPlayer.playerAttack(testPlayer.getPlayerPower(), 3), testPlayer.getPlayerPower() * 3);
         assertEquals(testPlayer.playerAttack(testPlayer.getPlayerPower(), 0), 0);
+        assertEquals(testPlayerTwo.playerAttack(testPlayerTwo.getPlayerPower(), 3), testPlayerTwo.getPlayerPower() * 3);
+        assertEquals(testPlayerTwo.playerAttack(testPlayerTwo.getPlayerPower(), 0), 0);
     }
 
     @Test
@@ -65,6 +69,12 @@ class PlayerTest {
         assertTrue(testPlayer.playerWin(0));
         assertFalse(testPlayer.playerWin(1000));
         assertFalse(testPlayer.playerWin(11));
+    }
+
+    @Test
+    public void testPlayerConstructor() {
+        assertEquals(100, testPlayer.getPlayerHealth());
+        assertEquals(1, testPlayer.getPlayerPower());
     }
 
 }
