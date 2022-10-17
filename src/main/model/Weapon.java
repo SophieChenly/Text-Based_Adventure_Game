@@ -30,6 +30,12 @@ public class Weapon {
         return this.weaponName;
     }
 
+    //EFFECTS: displays weapon name and damage
+    public String displayWeaponStats() {
+        System.out.println("Weapon name: " + this.weaponName + "\n Damage: " + this.weaponDamage);
+        return "Weapon name: " + this.weaponName + "\n Damage: " + this.weaponDamage;
+    }
+
     
 
 }
