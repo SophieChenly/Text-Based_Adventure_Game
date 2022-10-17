@@ -77,4 +77,13 @@ class PlayerTest {
         assertEquals(1, testPlayer.getPlayerPower());
     }
 
+    @Test
+    public void testSetters() {
+        testPlayer.setStrongestWeaponName("big");
+        assertEquals("big", testPlayer.getStrongestWeaponName());
+        testPlayer.setStrongestWeaponDamage(40);
+        assertEquals(40 , testPlayer.getStrongestWeaponDamage());
+
+    }
+
 }
