@@ -27,6 +27,7 @@ public class Weapon {
     public int getMaxDamage() {
         return this.maxDamage;
     }
+
     public String getWeaponName() {
         return this.weaponName;
     }
