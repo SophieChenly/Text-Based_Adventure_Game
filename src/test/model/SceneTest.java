@@ -9,10 +9,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class SceneTest {
 
-    Scene testSceneOne = new Scene("main", true);
-    Scene testSceneTwo = new Scene("main", true);
-    Scene testSceneThree = new Scene("main", true);
-    Scene testScene = new Scene("main", testSceneOne, testSceneTwo, testSceneThree);
+    Scene testSceneOne = new Scene("test", "main", true);
+    Scene testSceneTwo = new Scene("test", "main", true);
+    Scene testSceneThree = new Scene("test", "main", true);
+    Scene testScene = new Scene("test", "main", testSceneOne, testSceneTwo, testSceneThree);
 
 
     @Test
