@@ -15,5 +15,7 @@ I hope to create a text-based simulation that offers branching choices for the p
 - As a user, I want to be able to add items into my inventory.
 - As a user, I want to be able to win or lose the game.
 - As a user, I want to be able to make choices that influence the course of the story.
+- As a user, I want to be able to save my game.
+- As a user, I want to be able to reload my latest save.
 
  
