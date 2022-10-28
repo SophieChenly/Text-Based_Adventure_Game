@@ -60,7 +60,7 @@ public class Game {
             "You exit Honour Roll. You hear flesh slapping against the floor.",
             sceneNine, sceneTen, sceneEleven);
 
-    private Scene sceneMoreKnivesTwo = new Scene("Take another knife",
+    private Scene sceneMoreKnivesTwo = new Scene("Take another knife!",
             "You spent too much time here. It's time to go.",
             sceneDie, sceneDie, sceneDie, rustyKnifeThree);
 
@@ -208,7 +208,7 @@ public class Game {
     // correct options are chosen, allows the player to select which option they'd like to choose, sets last scene.
     private void playScene(Scene scene) {
         System.out.println(scene.getMainText());
-        newPlayer.setLastScene(scene);
+        newPlayer.setLastScene(scene.getOptionName());
         if (scene.getGameOver()) {
             gameOver();
         } else if (scene.getGameWin()) {
@@ -266,11 +266,64 @@ public class Game {
 
     // MODIFIES: this
     // EFFECTS: loads game from file
+    @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
     private void loadGame() {
         try {
             newPlayer = jsonReader.read();
             System.out.println("Loaded old save from " + JSON_STORE);
-            playScene(jsonReader.read().getLastScene());
+            switch (newPlayer.getLastScene()) {
+                case "game start":
+                    playScene(startScene);
+                    break;
+                case "photo of Gregor the Great":
+                    playScene(sceneFour);
+                    break;
+                case "hatchet":
+                    playScene(sceneThree);
+                    break;
+                case "machete":
+                    playScene(sceneTwo);
+                    break;
+                case "Chemistry building":
+                    playScene(sceneFive);
+                    break;
+                case "Main Mall":
+                    playScene(sceneSix);
+                    break;
+                case "The Nest":
+                    playScene(sceneSeven);
+                    break;
+                case "Explore the first floor":
+                    playScene(sceneEight);
+                    break;
+                case "Take a rusty knife":
+                    playScene(sceneKnife);
+                    break;
+                case "Take another knife":
+                    playScene(sceneMoreKnives);
+                    break;
+                case "Do nothing":
+                    playScene(sceneIdle);
+                    break;
+                case "Take another knife!":
+                    playScene(sceneMoreKnivesTwo);
+                    break;
+                case "Leave":
+                    playScene(sceneNoKnife);
+                    break;
+                case "Explore the second floor":
+                    playScene(sceneNine);
+                    break;
+                case "Explore the third floor":
+                    playScene(sceneTen);
+                    break;
+                case "Go to the roof":
+                    playScene(sceneEleven);
+                    break;
+                case "DIE":
+                    playScene(sceneDie);
+                    break;
+            }
         } catch (IOException e) {
             System.out.println("Unable to read from file: " + JSON_STORE);
         }

@@ -50,13 +50,13 @@ public class JsonReader {
         addWeaponsToInventory(newPlayer, jsonObject);
         newPlayer.setStrongestWeaponName(jsonObject.getString("strongest weapon name"));
         newPlayer.setStrongestWeaponDamage(jsonObject.getInt("strongest weapon damage"));
-        newPlayer.setLastScene(jsonObject.getString("scene name"));
+        newPlayer.setLastScene(jsonObject.getString("last scene"));
         return newPlayer;
     }
 
     private void setScene(JSONObject jsonObject) {
 
-        String optionName = jsonObject.getString("option name");
+        String optionName = jsonObject.getString("scene name");
 
     }
 

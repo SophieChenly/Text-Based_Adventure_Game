@@ -14,7 +14,7 @@ public class Player implements Writable {
     private int playerHealth;
     private int playerPower;
     private List<Weapon> inventory;
-    private Scene lastScene;
+    private String lastScene;
     private int strongestWeaponDamage = 0;
     private String strongestWeaponName = null;
 
@@ -25,11 +25,11 @@ public class Player implements Writable {
         this.inventory = new ArrayList<>();
     }
 
-    public void setLastScene(Scene scene) {
-        this.lastScene = scene;
+    public void setLastScene(String string) {
+        this.lastScene = string;
     }
 
-    public Scene getLastScene() {
+    public String getLastScene() {
         return this.lastScene;
     }
 
@@ -88,7 +88,7 @@ public class Player implements Writable {
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
         json.put("inventory", inventoryToJson());
-        json.put("scene name", lastScene.toJson());
+        json.put("last scene", lastScene);
         json.put("strongest weapon damage", strongestWeaponDamage);
         json.put("strongest weapon name", strongestWeaponName);
         return json;
