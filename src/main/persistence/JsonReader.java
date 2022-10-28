@@ -1,10 +1,10 @@
 package persistence;
 //CITATION: This file is modeled after the provided sample application
 
+import model.Scene;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import ui.Game;
-import model.Scene;
 import model.Player;
 import model.Weapon;
 
@@ -27,7 +27,7 @@ public class JsonReader {
 
     // EFFECTS: reads workroom from file and returns it;
     // throws IOException if an error occurs reading data from file
-    public Game read() throws IOException {
+    public Player read() throws IOException {
         String jsonData = readFile(source);
         JSONObject jsonObject = new JSONObject(jsonData);
         return loadGameSave(jsonObject);
@@ -45,29 +45,37 @@ public class JsonReader {
     }
 
     // EFFECTS: parses workroom from JSON object and returns it
-    private Game loadGameSave(JSONObject jsonObject) {
-        String name = jsonObject.getString("name");
-        WorkRoom wr = new WorkRoom(name);
-        addThingies(wr, jsonObject);
-        return wr;
+    private Player loadGameSave(JSONObject jsonObject) {
+        Player newPlayer = new Player();
+        addWeaponsToInventory(newPlayer, jsonObject);
+        newPlayer.setStrongestWeaponName(jsonObject.getString("strongest weapon name"));
+        newPlayer.setStrongestWeaponDamage(jsonObject.getInt("strongest weapon damage"));
+        newPlayer.setLastScene(jsonObject.getString("scene name"));
+        return newPlayer;
+    }
+
+    private void setScene(JSONObject jsonObject) {
+
+        String optionName = jsonObject.getString("option name");
+
     }
 
     // MODIFIES: wr
-    // EFFECTS: parses thingies from JSON object and adds them to workroom
-    private void addThingies(WorkRoom wr, JSONObject jsonObject) {
-        JSONArray jsonArray = jsonObject.getJSONArray("thingies");
+    // EFFECTS: parses weapons from JSON object and adds them to inventory
+    private void addWeaponsToInventory(Player player, JSONObject jsonObject) {
+        JSONArray jsonArray = jsonObject.getJSONArray("inventory");
         for (Object json : jsonArray) {
-            JSONObject nextThingy = (JSONObject) json;
-            addThingy(wr, nextThingy);
+            JSONObject nextWeapon = (JSONObject) json;
+            addWeaponToInventory(player, nextWeapon);
         }
     }
 
     // MODIFIES: wr
-    // EFFECTS: parses thingy from JSON object and adds it to workroom
-    private void addThingy(Player player, JSONObject jsonObject) {
-        String name = jsonObject.getString("weapon");
-        Weapon weapon = weapon.setWeaponName(jsonObject.getString("category"));
-        Thingy thingy = new Thingy(name, category);
-        wr.addThingy(thingy);
+    // EFFECTS: parses weapon from JSON object and adds it to inventory
+    private void addWeaponToInventory(Player player, JSONObject jsonObject) {
+        String weaponName = jsonObject.getString("weapon name");
+        int weaponDamage = jsonObject.getInt("weapon damage");
+        Weapon weapon = new Weapon(weaponName, weaponDamage);
+        player.addWeapons(weapon);
     }
 }

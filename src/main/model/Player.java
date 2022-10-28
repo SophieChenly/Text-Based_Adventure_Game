@@ -89,6 +89,8 @@ public class Player implements Writable {
         JSONObject json = new JSONObject();
         json.put("inventory", inventoryToJson());
         json.put("scene name", lastScene.toJson());
+        json.put("strongest weapon damage", strongestWeaponDamage);
+        json.put("strongest weapon name", strongestWeaponName);
         return json;
     }
 

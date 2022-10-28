@@ -15,7 +15,10 @@ import java.sql.SQLOutput;
 import java.util.Scanner;
 
 // Creates the main game
-public class Game implements Writable {
+public class Game {
+
+    private static final String JSON_STORE = "./data/workroom.json";
+
     Weapon machete = new Weapon("machete", 1,10);
 
     Weapon hatchet = new Weapon("hatchet", 3, 10);
@@ -106,7 +109,8 @@ public class Game implements Writable {
 
 
     private Scene startScene = new Scene("game start",
-            "Welcome to the game. Type 1, 2 or 3 to make your decisions. Type 4 to see inventory."
+            "Welcome to the game. Type 1, 2 or 3 to make your decisions. Type 4 to see inventory, 5 to save game,"
+                    + "and 6 to load game from previous save. \n"
                     + "You are on the UBC campus. \n"
                     + " There is not a living thing in sight, but you sense a danger in the air. \n "
                     + "Before you are three weapons. Choose one.", sceneTwo, sceneThree, sceneFour);
@@ -123,6 +127,8 @@ public class Game implements Writable {
     // EFFECTS: runs the game
     private void runGame() {
         this.newPlayer = new Player();
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
         arbWeapons();
         playScene(startScene);
 
@@ -236,13 +242,38 @@ public class Game implements Writable {
             playScene(scene.getThirdChoice());
         } else if (choice == 4) {
             displayInventory(scene);
+        } else if (choice == 5) {
+            saveGame();
+        } else if (choice == 6) {
+            loadGame();
         } else {
             System.out.println("Invalid. Try again");
             playScene(scene);
         }
     }
 
+    // EFFECTS: saves the workroom to file
+    private void saveGame() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(newPlayer);
+            jsonWriter.close();
+            System.out.println("Saved current game to " + JSON_STORE);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE);
+        }
+    }
 
-    @Override
-    public
+    // MODIFIES: this
+    // EFFECTS: loads game from file
+    private void loadGame() {
+        try {
+            newPlayer = jsonReader.read();
+            System.out.println("Loaded old save from " + JSON_STORE);
+            playScene(jsonReader.read().getLastScene());
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE);
+        }
+    }
+
 }

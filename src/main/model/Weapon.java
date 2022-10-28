@@ -20,6 +20,12 @@ public class Weapon implements Writable {
         this.weaponDamage = weaponDamage(min,max);
     }
 
+    // weapon with preset name and damage
+    public Weapon(String name, int damage) {
+        this.weaponName = name;
+        this.weaponDamage = damage;
+    }
+
     public int getWeaponDamage() {
         return this.weaponDamage;
     }

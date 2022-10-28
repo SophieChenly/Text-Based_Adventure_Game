@@ -102,6 +102,13 @@ public class Scene implements Writable {
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
         json.put("scene name", optionName);
+        json.put("main test", mainText);
+        json.put("first choice", firstChoice.toJson());
+        json.put("second choice", secondChoice.toJson());
+        json.put("third choice", thirdChoice.toJson());
+        json.put("game over", gameOver);
+        json.put("add weapon", weapon.toJson());
+        json.put("game win", gameWin);
         return json;
     }
 }
