@@ -1,0 +1,15 @@
+{
+  "last scene": "machete",
+  "strongest weapon name": "RocketBelt",
+  "inventory": [
+    {
+      "weapon name": "bludgeon",
+      "weapon damage": 10
+    },
+    {
+      "weapon name": "Blade of the Ruined King",
+      "weapon damage": 160
+    }
+  ],
+  "strongest weapon damage": 190
+}

@@ -1,4 +1,5 @@
 package model;
+//CITATION: This file is modeled after the provided sample application
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -14,9 +15,9 @@ public class Player implements Writable {
     private int playerHealth;
     private int playerPower;
     private List<Weapon> inventory;
-    private String lastScene;
+    private String lastScene = "start scene";
     private int strongestWeaponDamage = 0;
-    private String strongestWeaponName = null;
+    private String strongestWeaponName = "bare fists";
 
     // initializes the player
     public Player() {

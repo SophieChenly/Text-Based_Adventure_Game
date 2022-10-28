@@ -1,4 +1,5 @@
 package model;
+//CITATION: This file is modeled after the provided sample application
 
 import org.json.JSONArray;
 import org.json.JSONObject;

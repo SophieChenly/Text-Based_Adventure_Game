@@ -1,4 +1,5 @@
 package ui;
+//CITATION: This file is modeled after the provided sample application
 
 import model.Player;
 import model.Scene;
@@ -17,7 +18,7 @@ import java.util.Scanner;
 // Creates the main game
 public class Game {
 
-    private static final String JSON_STORE = "./data/workroom.json";
+    private static final String JSON_STORE = "./data/gameSave.json";
 
     Weapon machete = new Weapon("machete", 1,10);
 

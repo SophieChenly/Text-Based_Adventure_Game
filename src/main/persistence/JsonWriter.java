@@ -1,4 +1,5 @@
 package persistence;
+//CITATION: This file is modeled after the provided sample application
 
 import model.Player;
 import model.Scene;
@@ -9,8 +10,6 @@ import org.json.JSONObject;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
-
-//CITATION: This file is modeled after the provided sample application
 
 public class JsonWriter {
     private static final int TAB = 4;
