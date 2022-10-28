@@ -3,14 +3,19 @@ package ui;
 import model.Player;
 import model.Scene;
 import model.Weapon;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.JsonReader;
+import persistence.JsonWriter;
+import persistence.Writable;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.SQLOutput;
 import java.util.Scanner;
 
 // Creates the main game
-public class Game {
-    Weapon tornBook = new Weapon("torn book", 0, 2);
-
+public class Game implements Writable {
     Weapon machete = new Weapon("machete", 1,10);
 
     Weapon hatchet = new Weapon("hatchet", 3, 10);
@@ -106,6 +111,8 @@ public class Game {
                     + " There is not a living thing in sight, but you sense a danger in the air. \n "
                     + "Before you are three weapons. Choose one.", sceneTwo, sceneThree, sceneFour);
 
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
     private Player newPlayer;
 
     // EFFECTS: runs the game
@@ -116,7 +123,6 @@ public class Game {
     // EFFECTS: runs the game
     private void runGame() {
         this.newPlayer = new Player();
-        newPlayer.addWeapons(tornBook);
         arbWeapons();
         playScene(startScene);
 
@@ -193,9 +199,10 @@ public class Game {
     }
 
     // EFFECTS: runs through a scene, adds weapons if found, lose if chose wrong option, goes to boss battle if all the
-    // correct options are chosen, allows the player to select which option they'd like to choose
+    // correct options are chosen, allows the player to select which option they'd like to choose, sets last scene.
     private void playScene(Scene scene) {
         System.out.println(scene.getMainText());
+        newPlayer.setLastScene(scene);
         if (scene.getGameOver()) {
             gameOver();
         } else if (scene.getGameWin()) {
@@ -236,4 +243,6 @@ public class Game {
     }
 
 
+    @Override
+    public
 }

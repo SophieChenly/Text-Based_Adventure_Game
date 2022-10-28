@@ -1,11 +1,13 @@
 package model;
 
 import model.Player;
+import org.json.JSONObject;
+import persistence.Writable;
 
 import java.util.Scanner;
 
 // scenarios/modular storytelling and choice branching
-public class Scene {
+public class Scene implements Writable {
 
     private String mainText;
     private String optionName;
@@ -18,9 +20,9 @@ public class Scene {
     private Boolean addWeapon = false;
 
     // creates a modular branch of the story (3 options)
-    public Scene(String optionname, String main, Scene fc, Scene sc, Scene tc) {
+    public Scene(String optionName, String main, Scene fc, Scene sc, Scene tc) {
         this.mainText = main;
-        this.optionName = optionname;
+        this.optionName = optionName;
         this.firstChoice = fc;
         this.secondChoice = sc;
         this.thirdChoice = tc;
@@ -28,9 +30,9 @@ public class Scene {
     }
 
     // creates a scene that adds a weapon to your inventory
-    public Scene(String optionname, String main, Scene fc, Scene sc, Scene tc, Weapon weapon) {
+    public Scene(String optionName, String main, Scene fc, Scene sc, Scene tc, Weapon weapon) {
         this.mainText = main;
-        this.optionName = optionname;
+        this.optionName = optionName;
         this.firstChoice = fc;
         this.secondChoice = sc;
         this.thirdChoice = tc;
@@ -95,6 +97,11 @@ public class Scene {
     }
 
 
-
-
+    // returns scene name as json data
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("scene name", optionName);
+        return json;
+    }
 }

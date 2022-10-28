@@ -1,10 +1,14 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.util.ArrayList;
 import java.util.List;
 
 // player, represents the user and their stats
-public class Player {
+public class Player implements Writable {
 
     private String playerName;
     private int playerHealth;
@@ -12,13 +16,21 @@ public class Player {
     private List<Weapon> inventory;
     private Scene lastScene;
     private int strongestWeaponDamage = 0;
-    private String strongestWeaponName;
+    private String strongestWeaponName = null;
 
     // initializes the player
     public Player() {
         this.playerHealth = 100;
         this.playerPower = 1;
         this.inventory = new ArrayList<>();
+    }
+
+    public void setLastScene(Scene scene) {
+        this.lastScene = scene;
+    }
+
+    public Scene getLastScene() {
+        return this.lastScene;
     }
 
     public int getPlayerHealth() {
@@ -72,4 +84,22 @@ public class Player {
     }
 
 
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("inventory", inventoryToJson());
+        json.put("scene name", lastScene.toJson());
+        return json;
+    }
+
+    // EFFECTS: returns things in this inventory as a JSON array
+    private JSONArray inventoryToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Weapon weapon : inventory) {
+            jsonArray.put(weapon.toJson());
+        }
+
+        return jsonArray;
+    }
 }

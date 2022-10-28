@@ -1,7 +1,11 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
+
 // weapon for use in combat
-public class Weapon {
+public class Weapon implements Writable {
 
     private String weaponName;
     private int weaponDamage;
@@ -43,6 +47,14 @@ public class Weapon {
         return (int) Math.floor(Math.random() * (max - min + 1) + min);
     }
 
-    
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("weapon name", weaponName);
+        json.put("weapon damage", weaponDamage);
+        return json;
+    }
+
 
 }
