@@ -16,7 +16,7 @@ import java.util.stream.Stream;
 
 // Things JSON has to store: - Player stuff: last scene, inventory, strongest item damage and name
 
-// Represents a reader that reads workroom from JSON data stored in file
+// Represents a reader that reads Player from JSON data stored in file
 public class JsonReader {
     private String source;
 
@@ -25,7 +25,7 @@ public class JsonReader {
         this.source = source;
     }
 
-    // EFFECTS: reads workroom from file and returns it;
+    // EFFECTS: reads player from file and returns it, reads the strongest weapon's details and last scene and sets it;
     // throws IOException if an error occurs reading data from file
     public Player read() throws IOException {
         String jsonData = readFile(source);
@@ -44,7 +44,7 @@ public class JsonReader {
         return contentBuilder.toString();
     }
 
-    // EFFECTS: parses workroom from JSON object and returns it
+    // EFFECTS: parses player, the strongest weapon details and last scene from JSON object and returns the player
     private Player loadGameSave(JSONObject jsonObject) {
         Player newPlayer = new Player();
         addWeaponsToInventory(newPlayer, jsonObject);
@@ -54,13 +54,8 @@ public class JsonReader {
         return newPlayer;
     }
 
-    private void setScene(JSONObject jsonObject) {
 
-        String optionName = jsonObject.getString("scene name");
-
-    }
-
-    // MODIFIES: wr
+    // MODIFIES: player
     // EFFECTS: parses weapons from JSON object and adds them to inventory
     private void addWeaponsToInventory(Player player, JSONObject jsonObject) {
         JSONArray jsonArray = jsonObject.getJSONArray("inventory");
@@ -70,7 +65,7 @@ public class JsonReader {
         }
     }
 
-    // MODIFIES: wr
+    // MODIFIES: player
     // EFFECTS: parses weapon from JSON object and adds it to inventory
     private void addWeaponToInventory(Player player, JSONObject jsonObject) {
         String weaponName = jsonObject.getString("weapon name");

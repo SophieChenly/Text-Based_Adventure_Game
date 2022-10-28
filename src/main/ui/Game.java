@@ -252,7 +252,7 @@ public class Game {
         }
     }
 
-    // EFFECTS: saves the workroom to file
+    // EFFECTS: saves the game to file
     private void saveGame() {
         try {
             jsonWriter.open();
