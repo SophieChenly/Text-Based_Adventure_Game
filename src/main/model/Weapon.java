@@ -63,5 +63,10 @@ public class Weapon implements Writable {
         return json;
     }
 
+    @Override
+    public String toString() {
+        return weaponName;
+    }
+
 
 }

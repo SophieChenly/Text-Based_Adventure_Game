@@ -20,6 +20,7 @@ import java.awt.event.WindowListener;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.SQLOutput;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 // Creates the main game
@@ -117,10 +118,9 @@ public class Game extends Frame implements ActionListener {
 
 
     private Scene startScene = new Scene("game start",
-            "Welcome to the game. Type 1, 2 or 3 to make your decisions. Type 4 to see inventory, 5 to save game,"
-                    + "and 6 to load game from previous save. \n"
+            "Welcome to the game. "
                     + "You are on the UBC campus. \n"
-                    + " There is not a living thing in sight, but you sense a danger in the air. \n "
+                    + "There is not a living thing in sight, but you sense a danger in the air. \n "
                     + "Before you are three weapons. Choose one.", sceneTwo, sceneThree, sceneFour);
 
     private String choice1Text = "machete";
@@ -257,6 +257,9 @@ public class Game extends Frame implements ActionListener {
         choice1.addActionListener(this);
         choice1.setActionCommand("game start");
 
+        load.addActionListener(this);
+        load.setActionCommand("load game");
+
     }
 
     // EFFECTS: puts the player in a boss battle. If won, wins the game, if not, loses the game
@@ -285,11 +288,41 @@ public class Game extends Frame implements ActionListener {
     }
 
     // EFFECTS: prints out the player's inventory, showing the stats and names of collected weapons
-    private void displayInventory(Scene scene) {
-        for (Weapon weapon: newPlayer.getInventory()) {
-            System.out.println(weapon.getWeaponStats());
+    private void displayInventory() {
+        /* ArrayList<Weapon> inventory = new ArrayList<>();
+        for (Weapon weapon : newPlayer.getInventory()) {
+            inventory.add(weapon);
         }
-        playScene(scene);
+
+        JList<Weapon> weaponList = new JList();*/
+        JFrame frame = new JFrame("Inventory");
+        JList<Weapon> list = new JList<>();
+        DefaultListModel<Weapon> model = new DefaultListModel<>();
+
+        JLabel label = new JLabel();
+        JPanel panel = new JPanel();
+        JSplitPane splitPane = new JSplitPane();
+
+        list.setModel(model);
+
+        model.addElement(new Weapon("fat bussy", 23));
+        model.addElement(new Weapon("thicc ass", 69));
+
+        for (Weapon weapon : newPlayer.getInventory()) {
+            model.addElement(weapon);
+        }
+
+
+        splitPane.setLeftComponent(new JScrollPane(list));
+        panel.add(label);
+        splitPane.setRightComponent(panel);
+
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.add(splitPane);
+        frame.setSize(500,1000);
+        frame.setVisible(true);
+
+
     }
 
     // EFFECTS: prints out possible options for the player to choose from
@@ -310,8 +343,6 @@ public class Game extends Frame implements ActionListener {
         } else if (scene.getGameWin()) {
             gameWin();
         }
-
-        displayOptions(scene);
 
         if (scene.getAddWeapon()) {
             newPlayer.addWeapons(scene.getWeapon());
@@ -337,7 +368,7 @@ public class Game extends Frame implements ActionListener {
         } else if (choice == 3) {
             playScene(scene.getThirdChoice());
         } else if (choice == 4) {
-            displayInventory(scene);
+            displayInventory();
         } else if (choice == 5) {
             saveGame();
         } else if (choice == 6) {
@@ -472,11 +503,16 @@ public class Game extends Frame implements ActionListener {
             setStoryText("You died lol");
             gameOver();
         } else if ("inventory".equals(e.getActionCommand())) {
-            //displayInventoryGUI();
+            displayInventory();
         } else if ("save game".equals(e.getActionCommand())) {
             saveGame();
         } else if ("load game".equals(e.getActionCommand())) {
             loadGame();
+        } else if ("Explore the first floor".equals(e.getActionCommand())) {
+            playScene(sceneEight);
+        } else if ("Explore the second floor".equals(e.getActionCommand())) {
+            setStoryText("dead");
+            gameOver();
         }
 
 
