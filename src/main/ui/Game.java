@@ -10,13 +10,20 @@ import persistence.JsonReader;
 import persistence.JsonWriter;
 import persistence.Writable;
 
+import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowListener;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.SQLOutput;
 import java.util.Scanner;
 
 // Creates the main game
-public class Game {
+public class Game extends Frame implements ActionListener {
 
     private static final String JSON_STORE = "./data/gameSave.json";
 
@@ -116,6 +123,12 @@ public class Game {
                     + " There is not a living thing in sight, but you sense a danger in the air. \n "
                     + "Before you are three weapons. Choose one.", sceneTwo, sceneThree, sceneFour);
 
+    private String choice1Text = "choice 1";
+    private String choice2Text = "choice 2";
+    private String choice3Text = "choice 3";
+    private String storyTextBox = "story text";
+
+
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
     private Player newPlayer;
@@ -127,14 +140,53 @@ public class Game {
 
     // EFFECTS: runs the game
     private void runGame() {
+
         this.newPlayer = new Player();
         jsonWriter = new JsonWriter(JSON_STORE);
         jsonReader = new JsonReader(JSON_STORE);
-        arbWeapons();
+        // arbWeapons();
         playScene(startScene);
+
+    }
+
+    private void initializeGraphicalUserInterface() {
+
+        JFrame frame = new JFrame("UBC");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(1000, 1000);
+
+        JPanel panel = new JPanel();
+        JPanel textPanel = new JPanel();
+        JLabel storyText;
+        storyText = new JLabel(storyTextBox);
+        JLabel label = new JLabel("Please select option");
+        JButton choice1 = new JButton(choice1Text);
+        JButton choice2 = new JButton(choice2Text);
+        JButton choice3 = new JButton(choice3Text);
+        JButton save = new JButton("save game");
+        JButton load = new JButton("load game");
+        JButton inventory = new JButton("open inventory");
+
+        panel.add(label);
+        panel.add(choice1);
+        panel.add(choice2);
+        panel.add(choice3);
+        panel.add(inventory);
+        panel.add(save);
+        panel.add(load);
+
+        textPanel.add(storyText);
+
+        frame.getContentPane().add(BorderLayout.SOUTH, panel);
+        frame.getContentPane().add(BorderLayout.CENTER, textPanel);
+        frame.setVisible(true);
+
+        choice1.addActionListener(this);
 
 
     }
+
+
 
     // MODIFIES: this
     // EFFECTS: allows player to add an arbitraru number of weapons to their inventory
@@ -208,6 +260,7 @@ public class Game {
     // EFFECTS: runs through a scene, adds weapons if found, lose if chose wrong option, goes to boss battle if all the
     // correct options are chosen, allows the player to select which option they'd like to choose, sets last scene.
     private void playScene(Scene scene) {
+        initializeGraphicalUserInterface();
         System.out.println(scene.getMainText());
         newPlayer.setLastScene(scene.getOptionName());
         if (scene.getGameOver()) {
@@ -328,6 +381,35 @@ public class Game {
         } catch (IOException e) {
             System.out.println("Unable to read from file: " + JSON_STORE);
         }
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
+        setChoice1Text("please work");
+        setChoice2Text("ass");
+        setChoice3Text("cum");
+        setStoryText("assholes");
+        initializeGraphicalUserInterface();
+
+
+
+    }
+
+    public void setChoice1Text(String s) {
+        this.choice1Text = s;
+    }
+
+    public void setChoice2Text(String s) {
+        this.choice2Text = s;
+    }
+
+    public void setChoice3Text(String s) {
+        this.choice3Text = s;
+    }
+
+    public void setStoryText(String s) {
+        this.storyTextBox = s;
     }
 
 }

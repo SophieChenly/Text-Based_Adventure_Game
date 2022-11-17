@@ -77,12 +77,16 @@ class PlayerTest {
         assertEquals(1, testPlayer.getPlayerPower());
     }
 
+
     @Test
     public void testSetters() {
         testPlayer.setStrongestWeaponName("big");
         assertEquals("big", testPlayer.getStrongestWeaponName());
         testPlayer.setStrongestWeaponDamage(40);
         assertEquals(40 , testPlayer.getStrongestWeaponDamage());
+        testPlayer.setLastScene("machete");
+        assertEquals("machete", testPlayer.getLastScene());
+        testPlayer(testPlayer.setPlayerInventory(new ArrayList<Weapon>() = new Weapon("cull", 30), new Weapon ("dagger", 20)));
 
     }
 
