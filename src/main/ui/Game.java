@@ -123,10 +123,13 @@ public class Game extends Frame implements ActionListener {
                     + " There is not a living thing in sight, but you sense a danger in the air. \n "
                     + "Before you are three weapons. Choose one.", sceneTwo, sceneThree, sceneFour);
 
-    private String choice1Text = "choice 1";
-    private String choice2Text = "choice 2";
-    private String choice3Text = "choice 3";
-    private String storyTextBox = "story text";
+    private String choice1Text = "machete";
+    private String choice2Text = "hatchet";
+    private String choice3Text = "photo of Gregor the Great";
+    private String storyTextBox = "Welcome to the game. "
+            + "You are on the UBC campus. "
+            + "You sense a danger in the air. \n"
+            + "Before you are three weapons. Choose one.";
 
 
     private JsonWriter jsonWriter;
@@ -144,16 +147,22 @@ public class Game extends Frame implements ActionListener {
         this.newPlayer = new Player();
         jsonWriter = new JsonWriter(JSON_STORE);
         jsonReader = new JsonReader(JSON_STORE);
-        // arbWeapons();
+        //arbWeapons();
+
         playScene(startScene);
 
     }
 
-    private void initializeGraphicalUserInterface() {
+    private void initializeGraphicalUserInterface(Scene scene) {
 
         JFrame frame = new JFrame("UBC");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(1000, 1000);
+        frame.setSize(1300, 1000);
+
+        setChoice1Text(scene.getFirstChoice().getOptionName());
+        setChoice2Text(scene.getSecondChoice().getOptionName());
+        setChoice3Text(scene.getThirdChoice().getOptionName());
+        setStoryText(scene.getMainText());
 
         JPanel panel = new JPanel();
         JPanel textPanel = new JPanel();
@@ -182,6 +191,22 @@ public class Game extends Frame implements ActionListener {
         frame.setVisible(true);
 
         choice1.addActionListener(this);
+        choice1.setActionCommand(scene.getFirstChoice().getOptionName());
+
+        choice2.addActionListener(this);
+        choice2.setActionCommand(scene.getSecondChoice().getOptionName());
+
+        choice3.addActionListener(this);
+        choice3.setActionCommand(scene.getThirdChoice().getOptionName());
+
+        inventory.addActionListener(this);
+        inventory.setActionCommand("inventory");
+
+        save.addActionListener(this);
+        save.setActionCommand("save game");
+
+        load.addActionListener(this);
+        load.setActionCommand("load game");
 
 
     }
@@ -207,14 +232,31 @@ public class Game extends Frame implements ActionListener {
 
     // EFFECTS: indicates a loss and restarts the game
     private void gameOver() {
-        System.out.println("You died. Type restart to start over");
-        Scanner restart = new Scanner(System.in);
-        String restartChoice = restart.nextLine();
-        if (restartChoice.equals("restart")) {
-            runGame();
-        } else {
-            gameOver();
-        }
+        JFrame frame = new JFrame("UBC");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(1000, 1000);
+
+        JPanel panel = new JPanel();
+        JPanel textPanel = new JPanel();
+        JLabel storyText;
+        storyText = new JLabel(storyTextBox);
+        JLabel label = new JLabel("Please select option");
+        JButton choice1 = new JButton("restart");
+        JButton load = new JButton("load game");
+
+        panel.add(label);
+        panel.add(choice1);
+        panel.add(load);
+
+        textPanel.add(storyText);
+
+        frame.getContentPane().add(BorderLayout.SOUTH, panel);
+        frame.getContentPane().add(BorderLayout.CENTER, textPanel);
+        frame.setVisible(true);
+
+        choice1.addActionListener(this);
+        choice1.setActionCommand("game start");
+
     }
 
     // EFFECTS: puts the player in a boss battle. If won, wins the game, if not, loses the game
@@ -260,7 +302,7 @@ public class Game extends Frame implements ActionListener {
     // EFFECTS: runs through a scene, adds weapons if found, lose if chose wrong option, goes to boss battle if all the
     // correct options are chosen, allows the player to select which option they'd like to choose, sets last scene.
     private void playScene(Scene scene) {
-        initializeGraphicalUserInterface();
+        initializeGraphicalUserInterface(scene);
         System.out.println(scene.getMainText());
         newPlayer.setLastScene(scene.getOptionName());
         if (scene.getGameOver()) {
@@ -279,7 +321,7 @@ public class Game extends Frame implements ActionListener {
             }
         }
 
-        scanChoice(scene);
+        //scanChoice(scene);
 
     }
 
@@ -386,11 +428,57 @@ public class Game extends Frame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        setChoice1Text("please work");
-        setChoice2Text("ass");
-        setChoice3Text("cum");
-        setStoryText("assholes");
-        initializeGraphicalUserInterface();
+        if ("machete".equals(e.getActionCommand())) {
+            setChoice1Text("Chemistry Building");
+            setChoice2Text("Main Mall");
+            setChoice3Text("The Nest");
+            setStoryText("You picked up the machete and added it to your inventory. You are at the fountain."
+                    + " Where do you go?");
+            playScene(sceneTwo);
+        } else if ("hatchet".equals(e.getActionCommand())) {
+            setChoice1Text("Chemistry Building");
+            setChoice2Text("Main Mall");
+            setChoice3Text("The Nest");
+            setStoryText("You picked up the hatchet and added it to your inventory. You are at the fountain."
+                    + " Where do you go?");
+            playScene(sceneThree);
+        } else if ("photo of Gregor the Great".equals(e.getActionCommand())) {
+            setChoice1Text("Chemistry Building");
+            setChoice2Text("Main Mall");
+            setChoice3Text("The Nest");
+            setStoryText("You picked up the photo and added it to your inventory. "
+                    + "Gregor's dashing smile fills you with warmth. You are at the fountain."
+                    + " Where do you go?");
+            playScene(sceneFour);
+        } else if ("Chemistry building".equals(e.getActionCommand())) {
+            setStoryText("Zombies burst out of the doors and killed you. Game over.");
+            gameOver();
+        } else if ("game start".equals(e.getActionCommand())) {
+            setChoice1Text("machete");
+            setChoice2Text("hatchet");
+            setChoice3Text("photo of Gregor the Great");
+            setStoryText("Welcome to the game. "
+                    + "You are on the UBC campus. "
+                    + "You sense a danger in the air. \n"
+                    + "Before you are three weapons. Choose one.");
+            runGame();
+        } else if ("The Nest".equals(e.getActionCommand())) {
+            setChoice1Text("Explore the first floor");
+            setChoice2Text("Explore the second floor");
+            setChoice3Text("Explore the third floor");
+            setStoryText("You make your way to the nest (THERE IS NO IMPLEMENTATION BEYOND THIS POINT)");
+            playScene(sceneSeven);
+        } else if ("Main Mall".equals(e.getActionCommand())) {
+            setStoryText("You died lol");
+            gameOver();
+        } else if ("inventory".equals(e.getActionCommand())) {
+            //displayInventoryGUI();
+        } else if ("save game".equals(e.getActionCommand())) {
+            saveGame();
+        } else if ("load game".equals(e.getActionCommand())) {
+            loadGame();
+        }
+
 
 
 
