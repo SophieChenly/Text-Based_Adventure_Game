@@ -1,6 +1,4 @@
 package ui;
-//CITATION: This file is modeled after the provided sample application
-//CITATION: The logo of the University of British Columbia is used in the artwork displayed in the application.
 
 import model.Player;
 import model.Scene;
@@ -158,6 +156,8 @@ public class Game extends Frame implements ActionListener {
     }
 
     // EFFECTS: Creates a new window for the GUI
+
+    @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
     private void initializeGraphicalUserInterface(Scene scene) {
 
         JFrame frame = new JFrame("UBC");
@@ -248,8 +248,7 @@ public class Game extends Frame implements ActionListener {
 
 
     // EFFECTS: indicates a loss and restarts the game
-    @SuppressWarnings("checkstyle:MethodLength")
-    private void gameOver() {
+    @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})    private void gameOver() {
         JFrame frame = new JFrame("UBC");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(1000, 1000);
@@ -315,8 +314,9 @@ public class Game extends Frame implements ActionListener {
 
     }
 
-    // EFFECTS: prints out the player's inventory, showing the names of collected weapons as well as the strongest weapon name and damage
-    @SuppressWarnings("checkstyle:MethodLength")
+    // EFFECTS: prints out the player's inventory,
+    // showing the names of collected weapons as well as the strongest weapon name and damage
+    @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
     private void displayInventory() {
         /* ArrayList<Weapon> inventory = new ArrayList<>();
         for (Weapon weapon : newPlayer.getInventory()) {
@@ -493,9 +493,9 @@ public class Game extends Frame implements ActionListener {
         }
     }
 
-    @SuppressWarnings("checkstyle:MethodLength")
     @Override
     // EFFECTS: Reads user input from pressing buttons and plays the appropriate scene
+    @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
     public void actionPerformed(ActionEvent e) {
 
         if ("machete".equals(e.getActionCommand())) {
