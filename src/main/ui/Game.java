@@ -1,5 +1,6 @@
 package ui;
 //CITATION: This file is modeled after the provided sample application
+//CITATION: The logo of the University of British Columbia is used in the artwork displayed in the application.
 
 import model.Player;
 import model.Scene;
@@ -10,6 +11,7 @@ import persistence.JsonReader;
 import persistence.JsonWriter;
 import persistence.Writable;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -17,6 +19,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.SQLOutput;
@@ -153,6 +157,7 @@ public class Game extends Frame implements ActionListener {
 
     }
 
+    // EFFECTS: Creates a new window for the GUI
     private void initializeGraphicalUserInterface(Scene scene) {
 
         JFrame frame = new JFrame("UBC");
@@ -184,7 +189,19 @@ public class Game extends Frame implements ActionListener {
         panel.add(save);
         panel.add(load);
 
+        BufferedImage myPicture = null;
+
+        try {
+            myPicture = ImageIO.read(new File("/Users/sophie/IdeaProjects/project_l1x6p/src/main/ui/img_1.png"));
+        } catch (IOException e) {
+            System.out.println("oops");
+        }
+        JLabel picLabel = new JLabel(new ImageIcon(myPicture));
+
+
+
         textPanel.add(storyText);
+        textPanel.add(picLabel);
 
         frame.getContentPane().add(BorderLayout.SOUTH, panel);
         frame.getContentPane().add(BorderLayout.CENTER, textPanel);
@@ -231,6 +248,7 @@ public class Game extends Frame implements ActionListener {
 
 
     // EFFECTS: indicates a loss and restarts the game
+    @SuppressWarnings("checkstyle:MethodLength")
     private void gameOver() {
         JFrame frame = new JFrame("UBC");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -244,11 +262,21 @@ public class Game extends Frame implements ActionListener {
         JButton choice1 = new JButton("restart");
         JButton load = new JButton("load game");
 
+        BufferedImage myPicture = null;
+
+        try {
+            myPicture = ImageIO.read(new File("/Users/sophie/IdeaProjects/project_l1x6p/src/main/ui/img_3.png"));
+        } catch (IOException e) {
+            System.out.println("oops");
+        }
+        JLabel picLabel = new JLabel(new ImageIcon(myPicture));
+
         panel.add(label);
         panel.add(choice1);
         panel.add(load);
 
         textPanel.add(storyText);
+        textPanel.add(picLabel);
 
         frame.getContentPane().add(BorderLayout.SOUTH, panel);
         frame.getContentPane().add(BorderLayout.CENTER, textPanel);
@@ -287,7 +315,8 @@ public class Game extends Frame implements ActionListener {
 
     }
 
-    // EFFECTS: prints out the player's inventory, showing the stats and names of collected weapons
+    // EFFECTS: prints out the player's inventory, showing the names of collected weapons as well as the strongest weapon name and damage
+    @SuppressWarnings("checkstyle:MethodLength")
     private void displayInventory() {
         /* ArrayList<Weapon> inventory = new ArrayList<>();
         for (Weapon weapon : newPlayer.getInventory()) {
@@ -299,14 +328,15 @@ public class Game extends Frame implements ActionListener {
         JList<Weapon> list = new JList<>();
         DefaultListModel<Weapon> model = new DefaultListModel<>();
 
+        JButton addArbWeapon = new JButton("Add a useless weapon");
+
         JLabel label = new JLabel();
         JPanel panel = new JPanel();
         JSplitPane splitPane = new JSplitPane();
+        JLabel strongestWeapon = new JLabel("Strongest weapon: " + newPlayer.getStrongestWeaponName());
+        JLabel strongestWeaponDamage = new JLabel("Damage: " + newPlayer.getStrongestWeaponDamage());
 
         list.setModel(model);
-
-        model.addElement(new Weapon("fat bussy", 23));
-        model.addElement(new Weapon("thicc ass", 69));
 
         for (Weapon weapon : newPlayer.getInventory()) {
             model.addElement(weapon);
@@ -315,12 +345,19 @@ public class Game extends Frame implements ActionListener {
 
         splitPane.setLeftComponent(new JScrollPane(list));
         panel.add(label);
+        panel.add(addArbWeapon);
+        panel.add(strongestWeapon);
+        panel.add(strongestWeaponDamage);
         splitPane.setRightComponent(panel);
+
 
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.add(splitPane);
         frame.setSize(500,1000);
         frame.setVisible(true);
+
+        addArbWeapon.addActionListener(this);
+        addArbWeapon.setActionCommand("add arb");
 
 
     }
@@ -456,7 +493,9 @@ public class Game extends Frame implements ActionListener {
         }
     }
 
+    @SuppressWarnings("checkstyle:MethodLength")
     @Override
+    // EFFECTS: Reads user input from pressing buttons and plays the appropriate scene
     public void actionPerformed(ActionEvent e) {
 
         if ("machete".equals(e.getActionCommand())) {
@@ -513,6 +552,26 @@ public class Game extends Frame implements ActionListener {
         } else if ("Explore the second floor".equals(e.getActionCommand())) {
             setStoryText("dead");
             gameOver();
+        } else if ("Explore the third floor".equals(e.getActionCommand())) {
+            setStoryText("ehe you died");
+            gameOver();
+        } else if ("Take a rusty knife".equals(e.getActionCommand())) {
+            playScene(sceneKnife);
+        } else if ("Take another knife".equals(e.getActionCommand())) {
+            playScene(sceneMoreKnives);
+        } else if ("Do nothing".equals(e.getActionCommand())) {
+            setStoryText("You think this is a game? You think you have time to dawdle? Well you dont and ur dead now");
+            gameOver();
+        } else if ("Take another knife!".equals(e.getActionCommand())) {
+            playScene(sceneMoreKnivesTwo);
+        } else if ("DIE".equals(e.getActionCommand())) {
+            setStoryText("welp");
+            gameOver();
+        } else if ("Leave".equals(e.getActionCommand())) {
+            playScene(sceneNoKnife);
+        } else if ("add arb".equals(e.getActionCommand())) {
+            newPlayer.addWeapons(new Weapon("the tears of the one who coded this", 999));
+            displayInventory();
         }
 
 
