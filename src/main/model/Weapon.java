@@ -54,6 +54,13 @@ public class Weapon implements Writable {
         return (int) Math.floor(Math.random() * (max - min + 1) + min);
     }
 
+    //EFFECTS: Logs new strongest weapon name and damagae
+    public void logStrongestWeapon() {
+        ca.ubc.cpsc210.alarm.model.EventLog e = ca.ubc.cpsc210.alarm.model.EventLog.getInstance();
+        e.logEvent(new ca.ubc.cpsc210.alarm.model.Event("Strongest weapon changed to " + this.weaponName
+                + "(" + this.weaponDamage + " damage)"));
+    }
+
 
     @Override
     public JSONObject toJson() {

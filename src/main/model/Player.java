@@ -81,6 +81,8 @@ public class Player implements Writable {
 
     // adds a weapon in the player's inventory
     public void addWeapons(Weapon weapon)   {
+        ca.ubc.cpsc210.alarm.model.EventLog e = ca.ubc.cpsc210.alarm.model.EventLog.getInstance();
+        e.logEvent(new ca.ubc.cpsc210.alarm.model.Event("Added " + weapon.getWeaponName() + " to inventory"));
         this.inventory.add(weapon);
     }
 

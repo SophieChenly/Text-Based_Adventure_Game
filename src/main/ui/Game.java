@@ -21,6 +21,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.sql.Array;
 import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -161,8 +162,18 @@ public class Game extends Frame implements ActionListener {
     private void initializeGraphicalUserInterface(Scene scene) {
 
         JFrame frame = new JFrame("UBC");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         frame.setSize(1300, 1000);
+        frame.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+                ca.ubc.cpsc210.alarm.model.EventLog e = ca.ubc.cpsc210.alarm.model.EventLog.getInstance();
+                for (ca.ubc.cpsc210.alarm.model.Event event : e) {
+                    System.out.println(event.toString() + "\n");
+                }
+                System.exit(0);
+            }
+        });
 
         setChoice1Text(scene.getFirstChoice().getOptionName());
         setChoice2Text(scene.getSecondChoice().getOptionName());
@@ -250,8 +261,18 @@ public class Game extends Frame implements ActionListener {
     // EFFECTS: indicates a loss and restarts the game
     @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})    private void gameOver() {
         JFrame frame = new JFrame("UBC");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         frame.setSize(1000, 1000);
+        frame.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+                ca.ubc.cpsc210.alarm.model.EventLog e = ca.ubc.cpsc210.alarm.model.EventLog.getInstance();
+                for (ca.ubc.cpsc210.alarm.model.Event event : e) {
+                    System.out.println(event.toString() + "\n");
+                }
+                System.exit(0);
+            }
+        });
 
         JPanel panel = new JPanel();
         JPanel textPanel = new JPanel();
@@ -386,6 +407,7 @@ public class Game extends Frame implements ActionListener {
             if (scene.getWeapon().getWeaponDamage() > newPlayer.getStrongestWeaponDamage()) {
                 newPlayer.setStrongestWeaponDamage(scene.getWeapon().getWeaponDamage());
                 newPlayer.setStrongestWeaponName(scene.getWeapon().getWeaponName());
+                scene.getWeapon().logStrongestWeapon();
             }
         }
 
