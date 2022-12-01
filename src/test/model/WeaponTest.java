@@ -40,4 +40,10 @@ public class WeaponTest {
         assertEquals(0, testWeaponTwo.getMaxDamage());
     }
 
+    @Test
+    public void testLogStrongestWeapon() {
+
+
+    }
+
 }
