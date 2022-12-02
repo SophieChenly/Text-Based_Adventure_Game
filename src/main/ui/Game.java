@@ -31,13 +31,13 @@ public class Game extends Frame implements ActionListener {
 
     private static final String JSON_STORE = "./data/gameSave.json";
 
-    Weapon machete = new Weapon("machete", 1,10);
+    Weapon machete = new Weapon("machete", 1,2);
 
     Weapon hatchet = new Weapon("hatchet", 3, 10);
 
     Weapon gregTheGreat = new Weapon("Photo of Gregor the Great", 100, 999);
 
-    Weapon rustyKnife = new Weapon("rusty knife", 2, 5);
+    Weapon rustyKnife = new Weapon("rusty knife", 3, 5);
 
     Weapon rustyKnifeTwo = new Weapon("rusty knife", 2, 5);
 

@@ -16,6 +16,8 @@ public class WeaponTest {
     public void setUp() {
         testWeapon = new Weapon("test weapon", 1, 5);
         testWeaponTwo = new Weapon("test weapon two", 0, 0);
+        ca.ubc.cpsc210.alarm.model.EventLog e = ca.ubc.cpsc210.alarm.model.EventLog.getInstance();
+        e.clear();
 }
 
     @Test
@@ -38,12 +40,6 @@ public class WeaponTest {
         assertEquals("test weapon two", testWeaponTwo.getWeaponName());
         assertEquals(0, testWeaponTwo.getMinDamage());
         assertEquals(0, testWeaponTwo.getMaxDamage());
-    }
-
-    @Test
-    public void testLogStrongestWeapon() {
-
-
     }
 
 }

@@ -26,4 +26,31 @@ I hope to create a text-based simulation that offers branching choices for the p
 - You can save the state of the application by clicking on the save game button. (Inventory items will be saved)
 - You can load the state of the application by clicking on the load game button.
 
+## Phase 4: Task 2
+
+- Nothing will be logged when initially opening the application. This is because nothing has been added into your inventory yet. The EventLog will only log events related to adding weapons into the inventory.
+- To see the events logged, try choosing machete as the first choice. This will add the machete into your inventory and set your strongest weapon to machete. 
+- Sample:
+  Thu Dec 01 01:29:58 PST 2022
+  Added machete to inventory 
+
+  Thu Dec 01 01:29:58 PST 2022 
+  Strongest weapon changed to machete(1 damage) 
+- Go to the Nest, then to the first floor, then grab a rusty knife. This will add a rusty knife into your inventory and set the strongest weapon to rusty knife.
+- Sample:
+  Thu Dec 01 01:30:04 PST 2022
+  Added rusty knife to inventory
+
+  Thu Dec 01 01:30:04 PST 2022
+  Strongest weapon changed to rusty knife(3 damage)
+- Go into inventory and add a weapon into your inventory. This will add my tears into the inventory, but the strongest weapon remains the same.
+- Sample:
+  Thu Dec 01 01:30:12 PST 2022
+  Added the tears of the one who coded this to inventory
+
+## Phase 4: Task 3
+- I would like to improve the GUI. The inventory tab needs to be resized, and I'd like to make it so that when a new item is added into the inventory, the inventory just updates and doesn't pop out a new tab. Furthermore, I'd like the same with the gameplay - when a new scene is played, I'd like the frame to update rather than have a new frame pop up.
+- For the loadGame() and actionPerformed() functions, I want to optimize the code in a way that allows me to add more scenes into the game without needing to add new cases in the function to account for them, because currently every case has been manually entered.
+- Removal of the unused player health system.
+
  
